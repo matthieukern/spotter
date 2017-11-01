@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+- v7
+- v8
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-4.8
+    - g++-4.8
+script:
+  - npm test -- -i --coverage
+env:
+  global:
+  - CXX=g++-4.8
+  - JWT_SECRET=jwtSecret
