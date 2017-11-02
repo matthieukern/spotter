@@ -1,4 +1,4 @@
-# Spotter ![travis](https://travis-ci.org/matthieukern/spotter.svg?branch=master)
+# Spotter [![Build Status](https://travis-ci.org/matthieukern/spotter.svg?branch=master)](https://travis-ci.org/matthieukern/spotter)
 
 Spotter is a simple mobile application that allows users to take pictures and post them. All
 pictures are geo localized and can then be retrieved by any other user nearby the spot.
@@ -43,6 +43,9 @@ database, using Mongoose to manage the data models and schemas.
 The user management is managed thanks to the passport package, using the password and jwt 
 token strategies. Most of the app is reachable only for a logged user.
 
+Some push notifications are dispatched using OneSignal API. Those notifications are sent to all 
+users in a range of 5 km around any new spot.
+
 See the API's [documentation](https://matthieukern.github.io/spotter/) or generate it using `yarn run docs`.
 
 ##### Directory structure
@@ -72,7 +75,11 @@ command.
 heroku apps:create app-name
 heroku git:remote --app app-name
 heroku addons:create mongolab
-heroku config:set JWT_SECRET=jwtSecret # (see .env file)
+
+# add project relative configs (see .env.example file)
+heroku config:set JWT_SECRET=jwtSecret
+heroku config:set ONESIGNAL_APP_ID=onesignalAppId 
+heroku config:set ONESIGNAL_REST_KEY=onesignalRestKey
 
 # deploy the last commit
 git push heroku master
@@ -80,3 +87,10 @@ git push heroku master
 # open the deployed app
 heroku open
 ```
+
+### Credits
+
+This project was realized by [Antoine AUFFRAY](mailto:antoine.auffray@epitech.eu) and 
+[Matthieu KERN](mailto:matthieu.kern@epitech.eu) for the Epitech's module M-MOB-100.
+
+>Message for Epitech's teacher: We did not attend to the mobile course.

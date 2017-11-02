@@ -1,12 +1,36 @@
 import _ from 'lodash';
-import { success, notFound, author } from '../../services/response/';
+import request from 'request-promise';
+import { onesignal } from '../../config';
+import { author, notFound, success } from '../../services/response/';
 import { Spot } from '.';
 
-export const create = ({ user, bodymen: { body } }, res, next) =>
-  Spot.create({ ...body, user })
-    .then(spot => spot.view(true))
+export const create = ({ user, bodymen: { body } }, res, next) => {
+  const [lat, long] = body.location;
+  request({
+    method: 'POST',
+    uri: 'https://onesignal.com/api/v1/notifications',
+    headers: {
+      Authorization: `Basic ${onesignal.restKey}`
+    },
+    body: {
+      app_id: onesignal.appId,
+      filters: [{ field: 'location', radius: 5000, lat, long }],
+      contents: {
+        en: `Find out the new spot from ${user.name} near you on spotter!`,
+        fr: `Regardes ce que vient de poster ${user.name} près de toi sur spotter !`
+      }
+    },
+    json: true
+  }).catch(e => {
+    // logged only for monitoring purpose
+    console.error(e);
+  });
+
+  return Spot.create({ ...body, user })
+    .then(spot => spot.view())
     .then(success(res, 201))
     .catch(next);
+};
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Spot.find(query, select, cursor)
@@ -29,7 +53,7 @@ export const update = ({ user, bodymen: { body }, params }, res, next) =>
     .then(notFound(res))
     .then(author(res, user, 'user'))
     .then(spot => (spot ? _.merge(spot, body).save() : null))
-    .then(spot => (spot ? spot.view(true) : null))
+    .then(spot => (spot ? spot.view() : null))
     .then(success(res))
     .catch(next);
 

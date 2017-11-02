@@ -23,6 +23,10 @@ const config = {
     port: process.env.PORT || 9000,
     ip: process.env.IP || '0.0.0.0',
     jwtSecret: requireProcessEnv('JWT_SECRET'),
+    onesignal: {
+      appId: requireProcessEnv('ONESIGNAL_APP_ID'),
+      restKey: requireProcessEnv('ONESIGNAL_REST_KEY')
+    },
     mongo: {
       options: {
         db: {

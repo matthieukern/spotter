@@ -15,3 +15,5 @@ env:
   global:
   - CXX=g++-4.8
   - JWT_SECRET=jwtSecret
+  - ONESIGNAL_APP_ID=onesignalAppId
+  - ONESIGNAL_REST_KEY=onesignalRestKey

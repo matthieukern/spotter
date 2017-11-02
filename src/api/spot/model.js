@@ -23,10 +23,10 @@ const spotSchema = new Schema(
 );
 
 spotSchema.methods = {
-  view(full) {
+  view() {
     return {
       id: this.id,
-      user: this.user.view(full),
+      user: this.user.view(),
       location: this.location,
       photo: this.photo,
       createdAt: this.createdAt,
