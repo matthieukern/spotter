@@ -33,7 +33,7 @@ test('POST /spots 201 (user)', async () => {
     .post('/')
     .send({
       access_token: userSession,
-      location: [-73.856077, 40.848447],
+      location: [40.848447, -73.856077],
       photo: 'example.com'
     });
   expect(status).toBe(201);

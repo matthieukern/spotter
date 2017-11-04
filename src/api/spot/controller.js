@@ -26,6 +26,7 @@ export const create = ({ user, bodymen: { body } }, res, next) => {
     console.error(e);
   });
 
+  body.location = [long, lat];
   return Spot.create({ ...body, user })
     .then(spot => spot.view())
     .then(success(res, 201))
