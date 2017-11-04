@@ -33,7 +33,10 @@ Express server listening on http://0.0.0.0:9000, in development mode
 
 #### Frontend
 
-The frontend is available for Android and iOS, and is developed using React Native.
+The frontend is available for Android and iOS, and is developed using React Native. More info can be
+found in the `app/` submodule. The application can be downloaded [here](https://github.com/matthieukern/spotter-application/blob/master/spotter.apk?raw=true).
+
+You can either init submodules or find the mobile application code [here](https://github.com/matthieukern/spotter-application/).
 
 #### Backend
 
